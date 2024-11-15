@@ -14,3 +14,37 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+`another homepages`
+``` dart
+ResponsiveLayout(
+        mobileBody: MobileBody(),
+        desktopBody: DesktopBody(),
+      ),
+
+Scaffold(
+        body: GradientContainer(Colors.black87, Colors.grey, Colors.white),
+      ),
+
+HomePage(),
+
+MainPage(),
+
+return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.dynaPuffTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
+      /* home: const Scaffold(
+        body: GradientContainer(Colors.black87, Colors.grey, Colors.white),
+      ), */
+      // home: const MainPage(),
+      home: const ResponsiveLayout(
+        mobileBody: MobileBody(),
+        desktopBody: DesktopBody(),
+      ),
+    );
+```
