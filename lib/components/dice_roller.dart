@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:google_fonts/google_fonts.dart';
 
 class DiceRoller extends StatefulWidget {
   const DiceRoller({super.key});
@@ -65,17 +64,37 @@ class _DiceRollerState extends State<DiceRoller> with TickerProviderStateMixin {
           height: 30,
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.grey[500],
-            foregroundColor: Colors.white,
-            textStyle: const TextStyle(
+          // style: TextButton.styleFrom(
+          //   backgroundColor: Colors.grey[500],
+          //   foregroundColor: Colors.white,
+          //   textStyle: const TextStyle(
+          //     fontSize: 20,
+          //   ),
+          // ),
+          onPressed: rollDice,
+          child: const Text(
+            'Roll Dice',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
               fontSize: 20,
             ),
           ),
-          onPressed: rollDice,
-          child: Text(
-            'Roll Dice',
-            style: GoogleFonts.dynaPuff(),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(
+            'Back',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
           ),
         ),
       ],

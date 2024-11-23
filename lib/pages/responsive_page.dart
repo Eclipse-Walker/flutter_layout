@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResponsivePage extends StatefulWidget {
-  const ResponsivePage({Key? key}) : super(key: key);
+  const ResponsivePage({super.key});
 
   @override
   _ResponsivePageState createState() => _ResponsivePageState();
