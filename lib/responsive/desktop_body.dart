@@ -29,7 +29,7 @@ class DesktopBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 500,
                       child: ListView.builder(
                           itemCount: 8,
