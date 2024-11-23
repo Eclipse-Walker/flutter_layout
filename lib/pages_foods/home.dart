@@ -385,7 +385,9 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+        },
         child: Container(
           margin: const EdgeInsets.all(10),
           alignment: Alignment.center,

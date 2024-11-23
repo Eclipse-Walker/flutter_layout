@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout/pages/main_page.dart';
 import 'package:flutter_layout/pages/responsive_page.dart';
+import 'package:flutter_layout/pages/start_page.dart';
 import 'package:flutter_layout/pages_foods/home.dart';
 import 'package:flutter_layout/responsive/desktop_body.dart';
 import 'package:flutter_layout/responsive/mobile_body.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Poppins',
       ),
-      home: HomePage(),
+      // home: HomePage(),
+      home: StartPage(),
     );
   }
 }
