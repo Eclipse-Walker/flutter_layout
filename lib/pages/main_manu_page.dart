@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_layout/pages/main_page.dart';
+import 'package:flutter_layout/pages/post_page.dart';
 import 'package:flutter_layout/pages_foods/home.dart';
 import '../components/gradient_container.dart';
 import '../responsive/desktop_body.dart';
@@ -53,6 +54,13 @@ class MainMenuPage extends StatelessWidget {
               destination: MainPage(),
               bgColor: Color.fromARGB(255, 224, 103, 127),
               iconColor: Color(0xffF6D6D6),
+            ),
+            MenuOption(
+              icon: Icons.local_post_office,
+              label: 'Post',
+              destination: PostListPage(),
+              bgColor: Color(0xffE5E1DA),
+              iconColor: Color(0xffDEAA79),
             ),
           ],
         ),
