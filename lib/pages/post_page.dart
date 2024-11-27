@@ -35,22 +35,34 @@ class _PostListPageState extends State<PostListPage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 Post post = snapshot.data![index];
-                return ListTile(
-                  title: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.feed, color: Colors.blue),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          post.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          softWrap: true,
-                        ),
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.feed, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              post.title,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  subtitle: Text(post.body),
+                      subtitle: Text(post.body),
+                    ),
+                    const Divider(
+                      color: Colors.black87,
+                      thickness: 0.2,
+                      height: 1,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                  ],
                 );
               },
             );

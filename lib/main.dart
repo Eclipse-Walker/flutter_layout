@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout/pages/main_manu_page.dart';
-import 'package:flutter_layout/pages/start_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Poppins',
       ),
-      // home: const StartPage(),
       home: const MainMenuPage(),
     );
   }
