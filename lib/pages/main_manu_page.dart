@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_layout/pages/main_page.dart';
+import 'package:flutter_layout/pages/pair_price_page.dart';
 import 'package:flutter_layout/pages/post_page.dart';
 import 'package:flutter_layout/pages_foods/home.dart';
 import '../components/gradient_container.dart';
@@ -61,6 +62,13 @@ class MainMenuPage extends StatelessWidget {
               destination: PostListPage(),
               bgColor: Color(0xffE5E1DA),
               iconColor: Color(0xffDEAA79),
+            ),
+            MenuOption(
+              icon: Icons.paid,
+              label: 'Pair Price',
+              destination: PairPricePage(),
+              bgColor: Color.fromARGB(255, 122, 180, 158),
+              iconColor: Color.fromARGB(255, 45, 126, 58),
             ),
           ],
         ),
