@@ -37,7 +37,9 @@ class PairPricePageState extends State<PairPricePage> {
   void _checkPrices() {
     double? cheapestUnitPrice;
     int? cheapestIndex;
+    double? highestUnitPrice;
 
+    List<PriceData> priceDataList = [];
     List<BarChartGroupData> barChartData = [];
 
     for (int i = 0; i < _priceControllers.length; i++) {
@@ -46,31 +48,62 @@ class PairPricePageState extends State<PairPricePage> {
 
       if (volume > 0) {
         double unitPrice = price / volume;
-        barChartData.add(
-          BarChartGroupData(
-            x: i,
-            barRods: [
-              BarChartRodData(
-                toY: unitPrice,
-                color: Colors.blue,
-                width: 20,
-                borderRadius: BorderRadius.circular(5),
-                backDrawRodData: BackgroundBarChartRodData(
-                  show: true,
-                  toY: 0,
-                  color: Colors.grey[200],
-                ),
-              ),
-            ],
-            showingTooltipIndicators: [0],
-          ),
-        );
+        priceDataList.add(PriceData('Product ${i + 1}', unitPrice));
 
         if (cheapestUnitPrice == null || unitPrice < cheapestUnitPrice) {
           cheapestUnitPrice = unitPrice;
           cheapestIndex = i;
         }
+
+        if (highestUnitPrice == null || unitPrice > highestUnitPrice) {
+          highestUnitPrice = unitPrice;
+        }
       }
+    }
+
+    double? priceRange = highestUnitPrice != null && cheapestUnitPrice != null
+        ? highestUnitPrice - cheapestUnitPrice
+        : null;
+
+    for (int i = 0; i < priceDataList.length; i++) {
+      Color barColor;
+      if (priceRange != null) {
+        double normalizedPrice =
+            (priceDataList[i].unitPrice - cheapestUnitPrice!) / priceRange;
+        if (normalizedPrice < 0.25) {
+          barColor = Colors.green;
+        } else if (normalizedPrice < 0.5) {
+          barColor = Colors.lightGreen;
+        } else if (normalizedPrice < 0.75) {
+          barColor = Colors.yellow;
+        } else if (normalizedPrice < 0.9) {
+          barColor = Colors.orange;
+        } else {
+          barColor = Colors.red;
+        }
+      } else {
+        barColor = Colors.blue;
+      }
+
+      barChartData.add(
+        BarChartGroupData(
+          x: i,
+          barRods: [
+            BarChartRodData(
+              toY: priceDataList[i].unitPrice,
+              color: barColor,
+              width: 20,
+              borderRadius: BorderRadius.circular(5),
+              backDrawRodData: BackgroundBarChartRodData(
+                show: true,
+                toY: 0,
+                color: Colors.grey[200],
+              ),
+            ),
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
     }
 
     if (cheapestIndex != null) {
@@ -119,7 +152,7 @@ class PairPricePageState extends State<PairPricePage> {
                               return Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  value.toStringAsFixed(2),
+                                  value.toStringAsFixed(1),
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 10),
                                 ),
