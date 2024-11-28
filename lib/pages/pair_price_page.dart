@@ -54,7 +54,7 @@ class PairPricePageState extends State<PairPricePage> {
                 toY: unitPrice,
                 color: Colors.blue,
                 width: 20,
-                borderRadius: BorderRadius.circular(5), 
+                borderRadius: BorderRadius.circular(5),
                 backDrawRodData: BackgroundBarChartRodData(
                   show: true,
                   toY: 0,
@@ -83,30 +83,47 @@ class PairPricePageState extends State<PairPricePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Product $cheapestIndex is the cheapest.',
+                  'Product ${cheapestIndex! + 1} is the cheapest.',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 SizedBox(
                   height: 300,
                   child: BarChart(
                     BarChartData(
                       barGroups: barChartData,
                       titlesData: FlTitlesData(
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              return Text(value.toStringAsFixed(2));
-                            },
-                          ),
+                        leftTitles: const AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
                         ),
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              return Text('Product ${value.toInt()}');
+                            getTitlesWidget: (value, meta) {
+                              return Text('Product ${value.toInt() + 1}');
+                            },
+                          ),
+                        ),
+                        topTitles: const AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          ),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 56,
+                            interval: 0.5,
+                            getTitlesWidget: (value, meta) {
+                              return Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  value.toStringAsFixed(2),
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 10),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -207,7 +224,7 @@ class PairPricePageState extends State<PairPricePage> {
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  if (index >= 2) // remove if more then 2 textfield
+                  if (index >= 2)
                     IconButton(
                       icon: const Icon(Icons.clear),
                       onPressed: () => _removePriceField(index),
