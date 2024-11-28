@@ -32,19 +32,45 @@ class MyApp extends StatelessWidget {
             fontSize: 30,
             fontStyle: FontStyle.normal,
           ),
-          bodyMedium: GoogleFonts.dynaPuff(),
-          displaySmall: GoogleFonts.dynaPuff(),
-          titleSmall: GoogleFonts.dynaPuff(),
-          bodyLarge: GoogleFonts.dynaPuff(),
-          bodySmall: GoogleFonts.dynaPuff(),
-          displayMedium: GoogleFonts.dynaPuff(),
-          headlineLarge: GoogleFonts.dynaPuff(),
-          headlineMedium: GoogleFonts.dynaPuff(),
-          headlineSmall: GoogleFonts.dynaPuff(),
-          labelLarge: GoogleFonts.dynaPuff(),
-          labelMedium: GoogleFonts.dynaPuff(),
-          labelSmall: GoogleFonts.dynaPuff(),
-          titleMedium: GoogleFonts.dynaPuff(),
+          bodyMedium: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          displaySmall: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          titleSmall: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          bodyLarge: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          bodySmall: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          displayMedium: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          headlineLarge: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          headlineMedium: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          headlineSmall: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          labelLarge: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          labelMedium: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          labelSmall: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
+          titleMedium: GoogleFonts.dynaPuff(
+            fontStyle: FontStyle.normal,
+          ),
         ),
       ),
       home: _prodution ? const MainMenuPage() : const PairPricePage(),

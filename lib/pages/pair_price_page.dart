@@ -116,7 +116,7 @@ class PairPricePageState extends State<PairPricePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Product ${cheapestIndex! + 1} is the cheapest.',
+                  'Product ${cheapestIndex! + 1} is the cheapest!',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -153,8 +153,13 @@ class PairPricePageState extends State<PairPricePage> {
                                 alignment: Alignment.center,
                                 child: Text(
                                   value.toStringAsFixed(1),
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 10),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.color ??
+                                          Colors.black,
+                                      fontSize: 10),
                                 ),
                               );
                             },
@@ -169,8 +174,12 @@ class PairPricePageState extends State<PairPricePage> {
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             return BarTooltipItem(
                               rod.toY.toStringAsFixed(2),
-                              const TextStyle(
-                                color: Colors.white,
+                              TextStyle(
+                                color: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.color ??
+                                    Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             );
@@ -216,12 +225,12 @@ class PairPricePageState extends State<PairPricePage> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         children: [
           const Padding(
             padding: EdgeInsets.only(
-              left: 20,
-              top: 10,
+              left: 0,
+              top: 5,
             ),
             child: Text(
               'Which one is cheaper? You can easily check!',
@@ -240,7 +249,7 @@ class PairPricePageState extends State<PairPricePage> {
                     child: TextField(
                       controller: priceController,
                       decoration: const InputDecoration(
-                        labelText: 'Enter price',
+                        labelText: 'Price',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
@@ -251,7 +260,7 @@ class PairPricePageState extends State<PairPricePage> {
                     child: TextField(
                       controller: volumeController,
                       decoration: const InputDecoration(
-                        labelText: 'Enter volume',
+                        labelText: 'Volume',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
