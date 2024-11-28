@@ -16,35 +16,18 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
-`another homepages`
-``` dart
-ResponsiveLayout(
-        mobileBody: MobileBody(),
-        desktopBody: DesktopBody(),
-      ),
+---
 
-Scaffold(
-        body: GradientContainer(Colors.black87, Colors.grey, Colors.white),
-      ),
-
-HomePage(),
-
-MainPage(),
-
-return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.dynaPuffTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      /* home: const Scaffold(
-        body: GradientContainer(Colors.black87, Colors.grey, Colors.white),
-      ), */
-      // home: const MainPage(),
-      home: const ResponsiveLayout(
-        mobileBody: MobileBody(),
-        desktopBody: DesktopBody(),
-      ),
-    );
+```
+ /$$$$$$$$           /$$ /$$                                       /$$      /$$           /$$ /$$                          
+| $$_____/          | $$|__/                                      | $$  /$ | $$          | $$| $$                          
+| $$        /$$$$$$$| $$ /$$  /$$$$$$   /$$$$$$$  /$$$$$$         | $$ /$$$| $$  /$$$$$$ | $$| $$   /$$  /$$$$$$   /$$$$$$ 
+| $$$$$    /$$_____/| $$| $$ /$$__  $$ /$$_____/ /$$__  $$ /$$$$$$| $$/$$ $$ $$ |____  $$| $$| $$  /$$/ /$$__  $$ /$$__  $$
+| $$__/   | $$      | $$| $$| $$  \ $$|  $$$$$$ | $$$$$$$$|______/| $$$$_  $$$$  /$$$$$$$| $$| $$$$$$/ | $$$$$$$$| $$  \__/
+| $$      | $$      | $$| $$| $$  | $$ \____  $$| $$_____/        | $$$/ \  $$$ /$$__  $$| $$| $$_  $$ | $$_____/| $$      
+| $$$$$$$$|  $$$$$$$| $$| $$| $$$$$$$/ /$$$$$$$/|  $$$$$$$        | $$/   \  $$|  $$$$$$$| $$| $$ \  $$|  $$$$$$$| $$      
+|________/ \_______/|__/|__/| $$____/ |_______/  \_______/        |__/     \__/ \_______/|__/|__/  \__/ \_______/|__/      
+                            | $$                                                                                           
+                            | $$                                                                                           
+                            |__/                                                                                           
 ```
