@@ -241,37 +241,47 @@ class PairPricePageState extends State<PairPricePage> {
             int index = entry.key;
             TextEditingController priceController = entry.value;
             TextEditingController volumeController = _volumeControllers[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: priceController,
-                      decoration: const InputDecoration(
-                        labelText: 'Price',
-                        border: OutlineInputBorder(),
+            return Dismissible(
+              key: UniqueKey(),
+              onDismissed: (direction) {
+                _removePriceField(index);
+              },
+              background: Container(
+                color: Colors.red,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: priceController,
+                        decoration: const InputDecoration(
+                          labelText: 'Price',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
                       ),
-                      keyboardType: TextInputType.number,
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      controller: volumeController,
-                      decoration: const InputDecoration(
-                        labelText: 'Volume',
-                        border: OutlineInputBorder(),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: volumeController,
+                        decoration: const InputDecoration(
+                          labelText: 'Volume',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
                       ),
-                      keyboardType: TextInputType.number,
                     ),
-                  ),
-                  if (index >= 2)
-                    IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () => _removePriceField(index),
-                    ),
-                ],
+                  ],
+                ),
               ),
             );
           }),
