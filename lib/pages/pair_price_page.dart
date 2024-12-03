@@ -37,7 +37,9 @@ class PairPricePageState extends State<PairPricePage> {
   void _checkPrices() {
     double? cheapestUnitPrice;
     int? cheapestIndex;
+    double? highestUnitPrice;
 
+    List<PriceData> priceDataList = [];
     List<BarChartGroupData> barChartData = [];
 
     for (int i = 0; i < _priceControllers.length; i++) {
@@ -46,31 +48,62 @@ class PairPricePageState extends State<PairPricePage> {
 
       if (volume > 0) {
         double unitPrice = price / volume;
-        barChartData.add(
-          BarChartGroupData(
-            x: i,
-            barRods: [
-              BarChartRodData(
-                toY: unitPrice,
-                color: Colors.blue,
-                width: 20,
-                borderRadius: BorderRadius.circular(5),
-                backDrawRodData: BackgroundBarChartRodData(
-                  show: true,
-                  toY: 0,
-                  color: Colors.grey[200],
-                ),
-              ),
-            ],
-            showingTooltipIndicators: [0],
-          ),
-        );
+        priceDataList.add(PriceData('Product ${i + 1}', unitPrice));
 
         if (cheapestUnitPrice == null || unitPrice < cheapestUnitPrice) {
           cheapestUnitPrice = unitPrice;
           cheapestIndex = i;
         }
+
+        if (highestUnitPrice == null || unitPrice > highestUnitPrice) {
+          highestUnitPrice = unitPrice;
+        }
       }
+    }
+
+    double? priceRange = highestUnitPrice != null && cheapestUnitPrice != null
+        ? highestUnitPrice - cheapestUnitPrice
+        : null;
+
+    for (int i = 0; i < priceDataList.length; i++) {
+      Color barColor;
+      if (priceRange != null) {
+        double normalizedPrice =
+            (priceDataList[i].unitPrice - cheapestUnitPrice!) / priceRange;
+        if (normalizedPrice < 0.25) {
+          barColor = Colors.green;
+        } else if (normalizedPrice < 0.5) {
+          barColor = Colors.lightGreen;
+        } else if (normalizedPrice < 0.75) {
+          barColor = Colors.yellow;
+        } else if (normalizedPrice < 0.9) {
+          barColor = Colors.orange;
+        } else {
+          barColor = Colors.red;
+        }
+      } else {
+        barColor = Colors.blue;
+      }
+
+      barChartData.add(
+        BarChartGroupData(
+          x: i,
+          barRods: [
+            BarChartRodData(
+              toY: priceDataList[i].unitPrice,
+              color: barColor,
+              width: 20,
+              borderRadius: BorderRadius.circular(5),
+              backDrawRodData: BackgroundBarChartRodData(
+                show: true,
+                toY: 0,
+                color: Colors.grey[200],
+              ),
+            ),
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
     }
 
     if (cheapestIndex != null) {
@@ -83,7 +116,7 @@ class PairPricePageState extends State<PairPricePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Product ${cheapestIndex! + 1} is the cheapest.',
+                  'Product ${cheapestIndex! + 1} is the cheapest!',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -119,9 +152,14 @@ class PairPricePageState extends State<PairPricePage> {
                               return Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  value.toStringAsFixed(2),
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 10),
+                                  value.toStringAsFixed(1),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.color ??
+                                          Colors.black,
+                                      fontSize: 10),
                                 ),
                               );
                             },
@@ -136,8 +174,12 @@ class PairPricePageState extends State<PairPricePage> {
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             return BarTooltipItem(
                               rod.toY.toStringAsFixed(2),
-                              const TextStyle(
-                                color: Colors.white,
+                              TextStyle(
+                                color: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.color ??
+                                    Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             );
@@ -183,12 +225,12 @@ class PairPricePageState extends State<PairPricePage> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         children: [
           const Padding(
             padding: EdgeInsets.only(
-              left: 20,
-              top: 10,
+              left: 0,
+              top: 5,
             ),
             child: Text(
               'Which one is cheaper? You can easily check!',
@@ -199,37 +241,47 @@ class PairPricePageState extends State<PairPricePage> {
             int index = entry.key;
             TextEditingController priceController = entry.value;
             TextEditingController volumeController = _volumeControllers[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: priceController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enter price',
-                        border: OutlineInputBorder(),
+            return Dismissible(
+              key: UniqueKey(),
+              onDismissed: (direction) {
+                _removePriceField(index);
+              },
+              background: Container(
+                color: Colors.red,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: priceController,
+                        decoration: const InputDecoration(
+                          labelText: 'Price',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
                       ),
-                      keyboardType: TextInputType.number,
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      controller: volumeController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enter volume',
-                        border: OutlineInputBorder(),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: volumeController,
+                        decoration: const InputDecoration(
+                          labelText: 'Volume',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
                       ),
-                      keyboardType: TextInputType.number,
                     ),
-                  ),
-                  if (index >= 2)
-                    IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () => _removePriceField(index),
-                    ),
-                ],
+                  ],
+                ),
               ),
             );
           }),
