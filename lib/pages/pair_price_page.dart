@@ -112,86 +112,88 @@ class PairPricePageState extends State<PairPricePage> {
         builder: (BuildContext context) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Product ${cheapestIndex! + 1} is the cheapest!',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 50),
-                SizedBox(
-                  height: 300,
-                  child: BarChart(
-                    BarChartData(
-                      barGroups: barChartData,
-                      titlesData: FlTitlesData(
-                        leftTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (value, meta) {
-                              return Text('Product ${value.toInt() + 1}');
-                            },
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Product ${cheapestIndex! + 1} is the cheapest!',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    height: 300,
+                    child: BarChart(
+                      BarChartData(
+                        barGroups: barChartData,
+                        titlesData: FlTitlesData(
+                          leftTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (value, meta) {
+                                return Text('Product ${value.toInt() + 1}');
+                              },
+                            ),
+                          ),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: false,
+                            ),
+                          ),
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 56,
+                              interval: 0.5,
+                              getTitlesWidget: (value, meta) {
+                                return Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    value.toStringAsFixed(1),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.color ??
+                                            Colors.black,
+                                        fontSize: 10),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                        topTitles: const AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: false,
-                          ),
-                        ),
-                        rightTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 56,
-                            interval: 0.5,
-                            getTitlesWidget: (value, meta) {
-                              return Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  value.toStringAsFixed(1),
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.color ??
-                                          Colors.black,
-                                      fontSize: 10),
+                        barTouchData: BarTouchData(
+                          enabled: true,
+                          touchTooltipData: BarTouchTooltipData(
+                            tooltipPadding: const EdgeInsets.all(5),
+                            tooltipMargin: 8,
+                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                              return BarTooltipItem(
+                                rod.toY.toStringAsFixed(2),
+                                TextStyle(
+                                  color: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.color ??
+                                      Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               );
                             },
                           ),
                         ),
+                        borderData: FlBorderData(show: false),
+                        gridData: const FlGridData(show: false),
                       ),
-                      barTouchData: BarTouchData(
-                        enabled: true,
-                        touchTooltipData: BarTouchTooltipData(
-                          tooltipPadding: const EdgeInsets.all(5),
-                          tooltipMargin: 8,
-                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                            return BarTooltipItem(
-                              rod.toY.toStringAsFixed(2),
-                              TextStyle(
-                                color: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.color ??
-                                    Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      borderData: FlBorderData(show: false),
-                      gridData: const FlGridData(show: false),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
