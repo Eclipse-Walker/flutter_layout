@@ -4,11 +4,8 @@
 // utility in the flutter_test package. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_layout/main.dart';
-import 'package:flutter_layout/pages/main_manu_page.dart';
 import 'package:flutter_layout/pages/pair_price_page.dart';
 
 void main() {
