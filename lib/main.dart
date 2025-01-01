@@ -11,7 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static const _prodution = false;
+  static const _prodution = true;
 
   @override
   Widget build(BuildContext context) {
